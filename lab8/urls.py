@@ -18,10 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from lab8 import settings
+from django.contrib.auth.views import LogoutView # <-- IMPORTANTE IMPORTAR ESTO
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('pokedex.urls'))
+    
+    # Ruta global de logout para que {% url 'logout' %} funcione en cualquier plantilla
+    path('logout/', LogoutView.as_view(), name='logout'),
+    
+    path('', include('pokedex.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

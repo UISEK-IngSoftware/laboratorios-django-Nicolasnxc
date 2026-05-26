@@ -131,3 +131,8 @@ STATICFILES_DIR = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+LOGIN_URL = 'pokedex:login'
+LOGIN_REDIRECT_URL = 'pokedex:index'
+LOGOUT_REDIRECT_URL = 'pokedex:login'
