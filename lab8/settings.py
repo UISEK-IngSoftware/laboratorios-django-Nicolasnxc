@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -35,11 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # --- Aquí están TODAS las apps unidas sin repetir ---
-    'oauth2_provider',
     'rest_framework',
+    'lab8',
     'pokedex',
-    'api',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -127,22 +128,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_DIR = [
-    BASE_DIR / 'static'
-]
+STATICFILES_DIR =[BASE_DIR / 'static']
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# --- Aquí están TODAS tus configuraciones del final unidas ---
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-}
-
-LOGIN_URL = 'pokedex:login'
 LOGIN_REDIRECT_URL = 'pokedex:index'
-LOGOUT_REDIRECT_URL = 'pokedex:login'
+LOGOUT_REDIRECT_URL = 'pokedex:index'
+LOGIN_URL = 'pokedex:login'
+
+CORS_ALLOW_ALL_ORIGINS = True

@@ -1,8 +1,17 @@
 from rest_framework import serializers
 from pokedex.models import Pokemon
+import base64
+from django.core.files.base import ContentFile
 
-picture = serializers.CharField(required=False, allow_blank=True)
-def validate_picture(self, value):
+class PokemonSerializer(serializers.ModelSerializer):
+
+    picture = serializers.CharField(required=False, allow_blank=True)
+
+    class Meta:
+        model = Pokemon
+        fields = '__all__'
+
+    def validate_picture(self, value):
         if value:
             try:
                 format, imgstr = value.split(';base64,')
@@ -14,10 +23,3 @@ def validate_picture(self, value):
             except Exception:
                 raise serializers.ValidationError("La imagen no se encuentra con base64 válida.")
         return value
-from django.core.files.base import ContentFile
-import base64
-
-class PokemonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pokemon
-        fields = '__all__'
