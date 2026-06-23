@@ -1,6 +1,10 @@
 from django.http import HttpResponse
 from django.template import loader
 from .models import Pokemon, Trainer
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .serializers import PokemonSerializer, TrainerSerializer
+
 
 def index(request):
     pokemons = Pokemon.objects.all() #Select * from pokedex_pokemon
@@ -26,3 +30,13 @@ def trainer(request, id: int):
         'trainer': trainer
     }
     return HttpResponse(template.render(context, request))
+
+class PokemonViewSet(viewsets.ModelViewSet):
+    queryset = Pokemon.objects.all()
+    serializer_class = PokemonSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly] # GET público, lo demás protegido
+
+class TrainerViewSet(viewsets.ModelViewSet):
+    queryset = Trainer.objects.all()
+    serializer_class = TrainerSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]

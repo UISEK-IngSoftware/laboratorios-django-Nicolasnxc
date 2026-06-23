@@ -21,6 +21,11 @@ from lab8 import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # Ruta para la autenticación con Django OAuth Toolkit
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')), 
+    
+    # Rutas de tu aplicación Pokedex
     path('', include('pokedex.urls'))
 ]
 
