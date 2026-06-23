@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Editar Pokémon - Pokédex{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        
+        <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden; background-color: #ffffff;">
+            
+            <div class="card-header text-white p-3 text-center" style="background-color: #7e3dc9;">
+                <h3 class="m-0 font-weight-bold">
+                    <i class="fa-solid fa-pen-to-square mr-2"></i>Editar Pokémon
+                </h3>
+            </div>
+            
+            <div class="card-body p-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="form-group mb-3">
+                        <label for="name" class="font-weight-bold" style="color: #376897;">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ pokemon.name }}" required style="border-radius: 8px;">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="type" class="font-weight-bold" style="color: #376897;">Tipo</label>
+                        <input type="text" class="form-control" id="type" name="type" value="{{ pokemon.type }}" required style="border-radius: 8px;">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="height" class="font-weight-bold" style="color: #376897;">Altura (m)</label>
+                        <input type="number" step="0.01" class="form-control" id="height" name="height" value="{{ pokemon.height|stringformat:".2f" }}" required style="border-radius: 8px;">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="trainer" class="font-weight-bold" style="color: #376897;">Entrenador</label>
+                        <select class="form-control" id="trainer" name="trainer" style="border-radius: 8px;" required>
+                            <option value="" disabled {% if not pokemon.trainer %}selected{% endif %}>-- Selecciona un entrenador --</option>
+                            
+                            {% for trainer in trainers %}
+                                <option value="{{ trainer.id }}" {% if trainer.id == pokemon.trainer.id %}selected{% endif %}>
+                                    {# Intentamos con .name o con el objeto completo si .name no existe #}
+                                    {% if trainer.name %}
+                                        {{ trainer.name|capfirst }}
+                                    {% else %}
+                                        {{ trainer }}
+                                    {% endif %}
+                                </option>
+                            {% empty %}
+                                <option value="" disabled>No hay entrenadores guardados en la Base de Datos</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label class="font-weight-bold d-block" style="color: #376897;">Imagen del Pokémon</label>
+                        {% if pokemon.picture %}
+                        <div class="mb-2 text-center p-2 border rounded bg-light">
+                            <img src="{{ pokemon.picture.url }}" alt="Actual" style="max-height: 80px; object-fit: contain;">
+                        </div>
+                        {% endif %}
+                        <input type="file" class="form-control-file" id="picture" name="picture" accept="image/*">
+                    </div>
+                    
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <a href="{% url 'pokedex:index' %}" class="btn btn-light btn-block font-weight-bold border" style="border-radius: 8px;">
+                                Cancelar
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-block font-weight-bold text-white" style="background-color: #75a2ce; border-radius: 8px;">
+                                <i class="fa-solid fa-floppy-disk mr-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}
