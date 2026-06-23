@@ -1,15 +1,13 @@
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import redirect, render, get_object_or_404 
 from .models import Pokemon, Trainer
-<<<<<<< HEAD
+from pokedex.forms import PokemonForm
+
+# Imports de Django REST Framework para tu API
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .serializers import PokemonSerializer, TrainerSerializer
-
-=======
-from django.shortcuts import redirect, render, get_object_or_404 
-from pokedex.forms import PokemonForm
->>>>>>> a5c6ce8190ac06cb3294de6115736b90d3855c9d
 
 # IMPORTS PARA LA VISTA BASADA EN CLASES Y PROTECCIÓN
 from django.contrib.auth.views import LoginView
@@ -89,7 +87,10 @@ def trainer(request, id: int):
     }
     return HttpResponse(template.render(context, request))
 
-<<<<<<< HEAD
+
+# ==========================================
+# VISTAS DE LA API (REST FRAMEWORK)
+# ==========================================
 class PokemonViewSet(viewsets.ModelViewSet):
     queryset = Pokemon.objects.all()
     serializer_class = PokemonSerializer
@@ -99,7 +100,8 @@ class TrainerViewSet(viewsets.ModelViewSet):
     queryset = Trainer.objects.all()
     serializer_class = TrainerSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-=======
+
+
 # ==========================================
 # 4. VISTA PARA EDITAR Y GUARDAR UN POKÉMON - PROTEGIDA
 # ==========================================
@@ -187,4 +189,3 @@ class CustomLoginView(LoginView):
     
     def get_success_url(self):
         return reverse_lazy('pokedex:index')
->>>>>>> a5c6ce8190ac06cb3294de6115736b90d3855c9d
