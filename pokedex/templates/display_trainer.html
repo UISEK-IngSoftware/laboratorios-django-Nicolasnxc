@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}
-  {{ trainer|capfirst }}
+  {{ trainer.first_name }} {{ trainer.last_name }}
 {% endblock %}
 {% block content %}
-  <h3>{{ trainer|capfirst }}</h3>
+  <div class="d-flex align-items-center gap-3 mb-4">
+    {% if trainer.picture %}
+      <img src="{{ trainer.picture.url }}" alt="{{ trainer }}" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;" />
+    {% endif %}
+    <div>
+      <h3>{{ trainer.first_name }} {{ trainer.last_name }}</h3>
+      <p class="mb-0 text-muted">Nivel {{ trainer.level }}</p>
+    </div>
+  </div>
   <p>Detalles:</p>
   <ul class="list-group">
     <li class="list-group-item">

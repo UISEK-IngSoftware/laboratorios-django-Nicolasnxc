@@ -7,26 +7,38 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <div class="container">
-            <div class="bg-primary text-white p-4 text-center">
-                <img src="{% static 'logo.svg' %}" alt="Logo" class="logo">
+    <body class="bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-4">
+            <div class="hero-card p-4 rounded-4 shadow-sm mx-auto">
+                <h1 class="mb-1 text-white">Pokédex</h1>
+                <p class="mb-0 text-white-75">Informate de los pokemons</p>
             </div>
-            
-            <nav class="navbar navbar-light mt-2 mb-4">
-                <ul class="nav me-auto"> <li class="nav-item">
-                        <a href="{% url 'pokedex:index' %}" class="nav-link">Pokemons</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="nav-link">Cerrar Sesión</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a href="{% url 'pokedex:login' %}" class="nav-link">Iniciar Sesión</a>
-                    </li>
-                    {% endif %}
-                </ul>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-custom mb-4">
+                <div class="container-fluid px-0">
+                    <a class="navbar-brand fw-bold text-dark" href="{% url 'pokedex:index' %}">Pokédex</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarMenu">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a href="{% url 'pokedex:index' %}" class="nav-link">Pokemons</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a href="{% url 'logout' %}" class="nav-link">Cerrar Sesión</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a href="{% url 'pokedex:login' %}" class="nav-link">Iniciar Sesión</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
             </nav>
             {% block content %}{% endblock content %}
         </div>

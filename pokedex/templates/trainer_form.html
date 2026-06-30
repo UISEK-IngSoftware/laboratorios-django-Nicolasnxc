@@ -5,8 +5,27 @@
 {% block content %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_div }}
+    <div class="mb-3">
+      <label for="id_first_name">Nombre</label>
+      {{ form.first_name }}
+    </div>
+    <div class="mb-3">
+      <label for="id_last_name">Apellido</label>
+      {{ form.last_name }}
+    </div>
+    <div class="mb-3">
+      <label for="id_birth_date">Fecha de nacimiento</label>
+      {{ form.birth_date }}
+    </div>
+    <div class="mb-3">
+      <label for="id_level">Nivel</label>
+      {{ form.level }}
+    </div>
+    <div class="mb-3">
+      <label for="id_picture">Foto del entrenador</label>
+      {{ form.picture }}
+    </div>
     <br><button type="submit" class="btn btn-primary">Guardar Trainer</button>
-    <a href="{% url "pokedex:index" %}" class="btn btn-secondary">Volver a la lista</a>
+    <a href="{% url 'pokedex:index' %}" class="btn btn-secondary">Volver a la lista</a>
   </form>
 {% endblock %}

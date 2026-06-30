@@ -2,6 +2,12 @@ from django import forms
 from .models import Pokemon, Trainer
 
 class PokemonForm(forms.ModelForm):
+    trainer = forms.ModelChoiceField(
+        queryset=Trainer.objects.all(),
+        required=False,
+        empty_label='Sin asignar',
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
     class Meta:
         model = Pokemon
         fields = '__all__'
@@ -31,10 +37,12 @@ class TrainerForm(forms.ModelForm):
             'last_name': 'Apellido',
             'birth_date': 'Fecha de nacimiento',
             'level': 'Nivel',
+            'picture': 'Foto del entrenador',
         }
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'level': forms.NumberInput(attrs={'class': 'form-control'}),
+            'picture': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
